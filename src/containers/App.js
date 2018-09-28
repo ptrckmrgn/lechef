@@ -1,20 +1,45 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import List from '../components/List';
+import Loader from '../components/Loader';
+
+import {
+    fetchItems
+} from '../actions/firebase';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    componentWillMount() {
+        this.props.fetchItems();
+    }
+
+    render() {
+        if (!this.props.items) {
+            return (
+                <Loader fill="#FD746C" />
+            );
+        }
+        else {
+            return (
+                <div id="app">
+                    <List items={this.props.items}/>
+                </div>
+            );
+        }
+    }
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        items: state.firebase.items
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        fetchItems
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

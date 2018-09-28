@@ -1,19 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import _ from 'lodash';
 
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
     border-bottom: 1px #ddd solid;
-    margin-top: -1px; ${'' /* bottom border */}
-`;
-const Checkbox = styled.input`
-    display: none;
-    &:checked + ${Icon}:before {
-        content: "\f14a";
-    }
+margin-top: -1px; ${'' /* negate bottom border */}
 `;
 const Icon = styled.label`
     cursor: pointer;
@@ -29,6 +22,12 @@ const Icon = styled.label`
         content: "\f0c8";
     }
 `;
+const Checkbox = styled.input`
+    display: none;
+    &:checked + ${Icon}:before {
+        content: "\f14a";
+    }
+`;
 const Text = styled.span`
     font-size: 1.1em;
     padding: 0 2px;
@@ -39,8 +38,6 @@ const Text = styled.span`
         "none"
     )};
 `;
-
-const uniqueId = "item-" + _.random(99999999);
 
 const Item = props => {
     return (

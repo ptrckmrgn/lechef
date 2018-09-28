@@ -1,6 +1,5 @@
-import Firebase from 'firebase';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
-import _ from 'lodash';
 
 const config = {
     apiKey: "AIzaSyC1-de3j7eYFaPcrGcM20txWVUWE7rqOm0",
@@ -10,7 +9,24 @@ const config = {
     storageBucket: "ptrckmrgn-lechef.appspot.com",
     messagingSenderId: "156866203732"
   };
-Firebase.initializeApp(config);
-const db = Firebase.firestore();
+firebase.initializeApp(config);
+const db = firebase.firestore();
 const settings = {timestampsInSnapshots: true};
 db.settings(settings);
+
+export const FETCH_ITEMS = 'fetch_items';
+
+export function fetchItems() {
+    return dispatch => {
+        db.collection('items').orderBy('updated_at', 'desc').onSnapshot(collection => {
+            const items = {};
+            collection.forEach(item => {
+                items[item.id] = item.data();
+            });
+            dispatch({
+                type: FETCH_ITEMS,
+                items
+            });
+        });
+    }
+}

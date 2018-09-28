@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import _ from 'lodash';
 
 import Item from './Item';
+import SectionTitle from './SectionTitle';
 
 const displayItems = (items, checked) => {
     return _.map(items, (item, id) => {
@@ -13,38 +14,18 @@ const displayItems = (items, checked) => {
                 quantity={item.quantity}
                 value={item.value}
                 checked={item.checked}
-                onChangeCheckbox={item.onChangeCheckbox}
+                onChangeCheckbox={() => console.log('changed')}
             />);
         }
     });
 }
 
-const SectionTitle = styled.div`
-    color: #666;
-    text-transform: uppercase;
-    font-size: 0.8em;
-    padding: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px #ddd solid;
-`;
-const Link = styled.a`
-    cursor: pointer;
-    outline: none;
-    font-size: 1.1em;
-    color: #333;
-    padding: 16px;
-    &:hover, :focus {
-        background: #F5F5F5;
-    }
-`;
-
 const List = props => {
-    let checked;
     return (
         <div>
-            {displayItems(props.items, checked=false)}
+            {displayItems(props.items, false)}
             <SectionTitle>Crossed off</SectionTitle>
-            {displayItems(props.items, checked=true)}
+            {displayItems(props.items, true)}
         </div>
     );
 }

@@ -26,11 +26,11 @@ const HeaderMobile = props => {
     return (
         <Wrapper>
             <IconButton onClick={props.onClickHamburger}>
-                <img src={IconHamburger} height="20px" />
+                <img src={IconHamburger} alt="navigation menu" height="20px" />
             </IconButton>
             <div><h1>{props.title}</h1></div>
             <IconButton onClick={props.onClickEllipsis}>
-                <img src={IconEllipsis} />
+                <img src={IconEllipsis} alt="shopping list menu" />
             </IconButton>
         </Wrapper>
     );
