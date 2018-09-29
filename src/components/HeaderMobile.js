@@ -2,39 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import IconHamburger from '../static/hamburger.svg';
-import IconEllipsis from '../static/ellipsis.svg';
+import { FiMenu } from 'react-icons/fi';
 
 const Wrapper = styled.div`
     position: fixed;
     top: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     background: #fff;
     box-shadow: rgba(0,0,0,0.1) 0 1px 8px 0;
     height: 60px;
 `;
-const IconButton = styled.a`
-    cursor: pointer;
+const Hamburger = styled.button`
     display: flex;
     align-items: center;
-    height: 100%;
-    padding: 0 16px;
-    margin: 0 8px;
+    font-size: 1.5em;
+    color: #FD746C;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    -webkit-tap-highlight-color: transparent;
 `;
 
 const HeaderMobile = props => {
     return (
         <Wrapper>
-            <IconButton onClick={props.onClickHamburger}>
-                <img src={IconHamburger} alt="navigation menu" height="20px" />
-            </IconButton>
-            <div><h1>{props.title}</h1></div>
-            <IconButton onClick={props.onClickEllipsis}>
+            <Hamburger onClick={props.onClickHamburger} aria-label="navigation menu">
+                <FiMenu />
+            </Hamburger>
+            <h1>{props.title}</h1>
+            {/* <IconButton onClick={props.onClickEllipsis}>
                 <img src={IconEllipsis} alt="shopping list menu" />
-            </IconButton>
+            </IconButton> */}
         </Wrapper>
     );
 }

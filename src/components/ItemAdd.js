@@ -7,12 +7,12 @@ import InputText from './InputText';
 import InputStepper from './InputStepper';
 
 const Wrapper = styled.div`
-    max-width: 375px;
+    width: 100%;
     box-shadow: rgba(0,0,0,0.1) 0 1px 8px 0, rgba(253,116,108,0.08) 0 0 100px 40px;
 `;
 const WrapperInputs = styled.div`
     display: flex;
-    padding: 8px 16px 8px 4px;
+    padding: 8px 16px 8px 0;
     background: #fff;
 `;
 const WrapperButtons = styled.div`

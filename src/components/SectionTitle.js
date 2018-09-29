@@ -6,8 +6,8 @@ const Wrapper = styled.div`
     color: #666;
     text-transform: uppercase;
     font-size: 0.8em;
-    padding: 24px;
-    padding-bottom: 16px;
+    padding: 16px;
+    padding-top: 24px;
     border-bottom: 1px #ddd solid;
 `;
 

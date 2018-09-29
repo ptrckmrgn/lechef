@@ -8,7 +8,8 @@ import Loader from '../components/Loader';
 
 import {
     fetchItems,
-    addItem
+    addItem,
+    updateItem
 } from '../actions/firebase';
 
 class App extends Component {
@@ -25,10 +26,14 @@ class App extends Component {
         else {
             return (
                 <div id="app">
-                    <HeaderMobile />
+                    <HeaderMobile
+                        onClickHamburger={() => console.log('hamburger')}
+                        onClickEllipsis={() => console.log('ellipsis')}
+                    />
                     <List
                         items={this.props.items}
                         addItem={this.props.addItem}
+                        updateItem={this.props.updateItem}
                     />
                 </div>
             );
@@ -45,7 +50,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         fetchItems,
-        addItem
+        addItem,
+        updateItem
     }, dispatch);
 }
 

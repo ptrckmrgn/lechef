@@ -2,37 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import IconMinus from '../static/minus.svg';
-import IconPlus from '../static/plus.svg';
+import { FiMinus } from 'react-icons/fi';
+import { FiPlus } from 'react-icons/fi';
 
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
     ${'' /* justify-content: space-between; */}
 `;
-const IconButton = styled.a`
-    cursor: pointer;
+const IconButton = styled.button`
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 40px;
+    font-size: 1.5em;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    -webkit-tap-highlight-color: transparent;
 `;
-const Count = styled.div`
+const Value = styled.div`
     min-width: 22px;
     font-size: 1.1em;
     text-align: center;
+    ${'' /* margin: 0 -8px; */}
 `;
 
 const InputStepper = props => {
     return (
         <Wrapper>
-            <IconButton onClick={props.onClickMinus}>
-                <img src={IconMinus} alt="reduce quantity by 1"/>
+            <IconButton onClick={props.onClickMinus} aria-label="reduce quantity by 1">
+                <FiMinus />
             </IconButton>
-            <Count>{props.value}</Count>
-            <IconButton onClick={props.onClickPlus}>
-                <img src={IconPlus} alt="increase quantity by 1"/>
+            <Value>{props.value}</Value>
+            <IconButton onClick={props.onClickPlus} aria-label="increase quantity by 1">
+                <FiPlus />
             </IconButton>
         </Wrapper>
     );

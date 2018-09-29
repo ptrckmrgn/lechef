@@ -2,59 +2,66 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { FiMoreVertical } from 'react-icons/fi';
+import { FiSquare } from 'react-icons/fi';
+import { FiCheckSquare } from 'react-icons/fi';
+
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    height: 56px;
     border-bottom: 1px #ddd solid;
-margin-top: -1px; ${'' /* negate bottom border */}
 `;
-const Icon = styled.label`
+const Checkbox = styled.label`
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: 1.5em;
+    padding: 8px 16px;
     color: ${props => props.checked ? '#aaa' : '#333'};
-    &:before {
-        font-family: 'Font Awesome 5 Free';
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 56px;
-        height: 56px;
-        content: "\f0c8";
-    }
+    -webkit-tap-highlight-color: transparent;
 `;
-const Checkbox = styled.input`
-    display: none;
-    &:checked + ${Icon}:before {
-        content: "\f14a";
-    }
-`;
-const Text = styled.span`
+const Text = styled.div`
     font-size: 1.1em;
-    padding: 0 2px;
     color: ${props => props.checked ? '#aaa' : '#333'};
-    background-image: ${props => props.checked ? (
-        "linear-gradient(to bottom, transparent, transparent 55%, #FD746C 55%, #FD746C 65%, transparent 65%)"
-    ):(
-        "none"
-    )};
+    text-decoration: ${props => props.checked && "line-through"};
+    white-space: pre;
+`;
+const MoreMenu = styled.button`
+    font-size: 1.5em;
+    padding: 8px 12px;
+    color: ${props => props.checked ? '#aaa' : '#666'};
+    display: flex;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
 `;
 
 const Item = props => {
     return (
         <Wrapper>
-            <Checkbox
-                id={props.id}
-                type="checkbox"
-                checked={props.checked}
-                onChange={props.onChangeCheckbox}
-            />
-            <Icon htmlFor={props.id} checked={props.checked}></Icon>
-            <span style={{paddingRight: '8px'}}>
-                <Text checked={props.checked}>{props.quantity}</Text>
-            </span>
-            <span>
-                <Text checked={props.checked}>{props.name}</Text>
-            </span>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <input
+                    id={props.id}
+                    type="checkbox"
+                    checked={props.checked}
+                    onChange={props.onChangeCheckbox}
+                    style={{ display: "none" }}
+                />
+                <Checkbox htmlFor={props.id} checked={props.checked}>
+                    {props.checked ? (
+                        <FiCheckSquare />
+                    ) : (
+                        <FiSquare />
+                    )}
+                </Checkbox>
+                <Text checked={props.checked}> {props.quantity}  {props.name}</Text>
+            </div>
+            <div>
+                <MoreMenu aria-label="item options" onClick={props.onClickEllipsis}>
+                    <FiMoreVertical />
+                </MoreMenu>
+            </div>
         </Wrapper>
     );
 }

@@ -8,9 +8,9 @@ const Wrapper = styled.button`
     overflow: hidden;
     outline: none;
     border: none;
-    ${'' /* border: ${props => props.primary ? 'none' : '#ddd 1px solid'}; */}
     color: ${props => props.primary ? '#fff' : '#666'};
-    height: ${props => props.large ? '56px' : '48px'};
+    ${'' /* height: ${props => props.large ? '56px' : '48px'}; */}
+    height: 48px;
     font-size: ${props => props.large ? '1.2em' : '0.9em'};
     width: ${props => props.wide ? '100%' : 'auto'};
     padding: ${props => props.wide ? '0' : '0 32px'};

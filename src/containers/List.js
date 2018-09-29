@@ -29,6 +29,7 @@ class List extends Component {
         }
 
         this.nameInputTextRef = React.createRef();
+        this.onChangeCheckbox = this.onChangeCheckbox.bind(this);
     }
 
     showAddItem() {
@@ -79,8 +80,8 @@ class List extends Component {
         this.showAddItem();
     }
 
-    onChangeCheckbox() {
-        console.log('checkbox changed');
+    onChangeCheckbox(item) {
+        this.props.updateItem(item.id, {checked: !item.checked});
     }
 
     onClickUpdate() {
@@ -89,6 +90,7 @@ class List extends Component {
 
     displayItems(items, checked) {
         return _.map(items, (item, id) => {
+            item.id = id
             if (item.checked === checked) {
                 return (<Item
                     id={id}
@@ -96,7 +98,7 @@ class List extends Component {
                     quantity={item.quantity}
                     name={item.name}
                     checked={item.checked}
-                    onChangeCheckbox={this.onChangeCheckbox.bind(this)}
+                    onChangeCheckbox={() => this.onChangeCheckbox(item)}
                 />);
             }
         });
@@ -111,7 +113,7 @@ class List extends Component {
             <div>
                 <StyleItems>
                     {this.displayItems(this.props.items, false)}
-                    <SectionTitle>Crossed off</SectionTitle>
+                    <SectionTitle style={{ marginLeft: "16px" }}>Crossed off</SectionTitle>
                     {this.displayItems(this.props.items, true)}
                 </StyleItems>
                 <StyleFixedBottom>
