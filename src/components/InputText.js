@@ -20,9 +20,11 @@ const InputText = props => {
     return (
         <Input
             type="text"
+            autoCapitalize="none"
             style={props.style}
             value={props.value}
             onChange={props.onChange}
+            innerRef={props.innerRef}
         />
     );
 }

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import List from '../components/List';
+import List from './List';
+import HeaderMobile from '../components/HeaderMobile';
 import Loader from '../components/Loader';
 
 import {
-    fetchItems
+    fetchItems,
+    addItem
 } from '../actions/firebase';
 
 class App extends Component {
@@ -23,7 +25,11 @@ class App extends Component {
         else {
             return (
                 <div id="app">
-                    <List items={this.props.items}/>
+                    <HeaderMobile />
+                    <List
+                        items={this.props.items}
+                        addItem={this.props.addItem}
+                    />
                 </div>
             );
         }
@@ -38,7 +44,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        fetchItems
+        fetchItems,
+        addItem
     }, dispatch);
 }
 

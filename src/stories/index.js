@@ -14,7 +14,7 @@ import InputText from '../components/InputText';
 import Item from '../components/Item';
 import ItemAdd from '../components/ItemAdd';
 import ItemEdit from '../components/ItemEdit';
-import List from '../components/List'
+import List from '../containers/List'
 import Menu from '../components/Menu';
 import Navigation from '../components/Navigation';
 
@@ -88,11 +88,11 @@ storiesOf('Components', module)
     ))
     .add('Item Add', () => (
         <ItemAdd
-            stepperValue={3}
+            quantity={3}
             onClickMinus={action('step down')}
             onClickPlus={action('step up')}
 
-            textValue="apples"
+            name="apples"
             onChangeText={action('text changed')}
 
             onClickCancel={action('clicked cancel')}
@@ -102,11 +102,11 @@ storiesOf('Components', module)
     ))
     .add('Item Edit', () => (
         <ItemEdit
-            stepperValue={3}
+            quantity={3}
             onClickMinus={action('step down')}
             onClickPlus={action('step up')}
 
-            textValue="apples"
+            name="apples"
             onChangeText={action('text changed')}
 
             onClickCancel={action('clicked cancel')}

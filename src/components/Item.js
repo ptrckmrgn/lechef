@@ -53,7 +53,7 @@ const Item = props => {
                 <Text checked={props.checked}>{props.quantity}</Text>
             </span>
             <span>
-                <Text checked={props.checked}>{props.value}</Text>
+                <Text checked={props.checked}>{props.name}</Text>
             </span>
         </Wrapper>
     );
@@ -62,7 +62,7 @@ const Item = props => {
 Item.propTypes = {
     id: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
-    value: PropTypes.string,
+    name: PropTypes.string,
     checked: PropTypes.bool,
     onChangeCheckbox: PropTypes.func.isRequired
 };

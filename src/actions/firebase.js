@@ -15,6 +15,7 @@ const settings = {timestampsInSnapshots: true};
 db.settings(settings);
 
 export const FETCH_ITEMS = 'fetch_items';
+export const ADD_ITEM = 'add_item';
 
 export function fetchItems() {
     return dispatch => {
@@ -28,5 +29,19 @@ export function fetchItems() {
                 items
             });
         });
+    }
+}
+
+export function addItem(quantity, name) {
+    return dispatch => {
+        const item = {
+            quantity,
+            name,
+            checked: false,
+            created_at: firebase.firestore.FieldValue.serverTimestamp(),
+            updated_at: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        db.collection('items').add(item);
     }
 }

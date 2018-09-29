@@ -6,6 +6,9 @@ import IconHamburger from '../static/hamburger.svg';
 import IconEllipsis from '../static/ellipsis.svg';
 
 const Wrapper = styled.div`
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;

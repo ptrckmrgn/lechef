@@ -13,6 +13,7 @@ const Wrapper = styled.div`
 const WrapperInputs = styled.div`
     display: flex;
     padding: 8px 16px 8px 4px;
+    background: #fff;
 `;
 const WrapperButtons = styled.div`
     display: flex;
@@ -24,30 +25,31 @@ const ItemAdd = props => {
         <Wrapper>
             <WrapperInputs>
                 <InputStepper
-                    value={props.stepperValue}
+                    value={props.quantity}
                     onClickMinus={props.onClickMinus}
                     onClickPlus={props.onClickPlus}
                 />
                 <InputText
                     style={{marginLeft: '8px'}}
-                    value={props.textValue}
+                    value={props.name}
                     onChange={props.onChangeText}
+                    innerRef={props.nameInputTextRef}
                 />
             </WrapperInputs>
             <WrapperButtons>
                 <Button wide style={{borderRight: '1px #ddd solid'}} onClick={props.onClickCancel}>Cancel</Button>
-                <Button wide style={{borderRight: '1px #ddd solid'}} onClick={props.onClickAdd}>Add</Button>
-                <Button primary wide onClick={props.onClickAddAnother}>Add Another</Button>
+                <Button wide style={{borderRight: '1px #ddd solid'}} onClick={props.onClickAddAnother}>Add Another</Button>
+                <Button primary wide onClick={props.onClickAdd}>Add</Button>
             </WrapperButtons>
         </Wrapper>
     );
 }
 
 ItemAdd.propTypes = {
-    stepperValue: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
+    name: PropTypes.string,
     onClickMinus: PropTypes.func.isRequired,
     onClickPlus: PropTypes.func.isRequired,
-    textValue: PropTypes.string,
     onChangeText: PropTypes.func.isRequired,
     onClickCancel: PropTypes.func.isRequired,
     onClickAdd: PropTypes.func.isRequired,

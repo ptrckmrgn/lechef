@@ -28,11 +28,11 @@ const InputStepper = props => {
     return (
         <Wrapper>
             <IconButton onClick={props.onClickMinus}>
-                <img src={IconMinus} />
+                <img src={IconMinus} alt="reduce quantity by 1"/>
             </IconButton>
             <Count>{props.value}</Count>
             <IconButton onClick={props.onClickPlus}>
-                <img src={IconPlus} />
+                <img src={IconPlus} alt="increase quantity by 1"/>
             </IconButton>
         </Wrapper>
     );
