@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import Button from '../components/Button';
 import Item from '../components/Item';
-import ItemAdd from '../components/ItemAdd';
+import ItemAddEdit from '../components/ItemAddEdit';
 import SectionTitle from '../components/SectionTitle';
 
 const StyleItems = styled.div`
@@ -15,6 +15,19 @@ const StyleFixedBottom = styled.div`
     width: 100%;
     position: fixed;
     bottom: 0;
+`;
+const StyleCheckedHeader = styled.div`
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px #ddd solid;
+`;
+const Link = styled.button`
+    padding: 16px;
+    font-weight: 800;
+    color: #FF9068;
+    text-transform: uppercase;
+    font-size: 0.8em;
 `;
 
 class List extends Component {
@@ -30,6 +43,7 @@ class List extends Component {
 
         this.nameInputTextRef = React.createRef();
         this.onChangeCheckbox = this.onChangeCheckbox.bind(this);
+        this.showEditItem = this.showEditItem.bind(this);
     }
 
     showAddItem() {
@@ -42,7 +56,18 @@ class List extends Component {
         });
     }
 
-    hideAddItem() {
+    showEditItem(item) {
+        this.setState({
+            isEditingItem: true,
+            itemId: item.id,
+            itemQuantity: item.quantity,
+            itemName: item.name
+        }, () => {
+            this.nameInputTextRef.current.focus();
+        });
+    }
+
+    hideAddEditItem() {
         this.setState({ isAddingItem: false, isEditingItem: false });
     }
 
@@ -67,12 +92,12 @@ class List extends Component {
     }
 
     onClickCancel() {
-        this.hideAddItem();
+        this.hideAddEditItem();
     }
 
     onClickAdd() {
         this.props.addItem(this.state.itemQuantity, this.state.itemName);
-        this.hideAddItem();
+        this.hideAddEditItem();
     }
 
     onClickAddAnother() {
@@ -80,27 +105,42 @@ class List extends Component {
         this.showAddItem();
     }
 
+    onClickUpdate() {
+        this.props.updateItem(this.state.itemId, {
+            quantity: this.state.itemQuantity,
+            name: this.state.itemName
+        });
+        this.hideAddEditItem();
+    }
+
     onChangeCheckbox(item) {
         this.props.updateItem(item.id, {checked: !item.checked});
     }
 
-    onClickUpdate() {
-        console.log('update');
+    deleteItems() {
+        this.props.deleteItems(_.filter(this.props.items, { 'checked': true }));
     }
 
     displayItems(items, checked) {
-        return _.map(items, (item, id) => {
-            item.id = id
-            if (item.checked === checked) {
-                return (<Item
-                    id={id}
-                    key={id}
+        if (checked) {
+            items = checked && _.chain(items).filter({ 'checked': true }).orderBy('updated_at', 'desc').value();
+        }
+        else {
+            items = !checked && _.chain(items).filter({ 'checked': false }).orderBy('created_at', 'asc').value();
+        }
+
+        return _.map(items, item => {
+            return (
+                <Item
+                    id={item.id}
+                    key={item.id}
                     quantity={item.quantity}
                     name={item.name}
                     checked={item.checked}
                     onChangeCheckbox={() => this.onChangeCheckbox(item)}
-                />);
-            }
+                    onClickEdit={() => this.showEditItem(item)}
+                />
+            );
         });
     }
 
@@ -113,14 +153,19 @@ class List extends Component {
             <div>
                 <StyleItems>
                     {this.displayItems(this.props.items, false)}
-                    <SectionTitle style={{ marginLeft: "16px" }}>Crossed off</SectionTitle>
+                    <StyleCheckedHeader>
+                        <SectionTitle style={{ marginLeft: "16px" }}>Crossed off</SectionTitle>
+                        <Link onClick={this.deleteItems.bind(this)}>Clear</Link>
+                    </StyleCheckedHeader>
                     {this.displayItems(this.props.items, true)}
                 </StyleItems>
                 <StyleFixedBottom>
                     {(() => {
-                        if (this.state.isAddingItem)
+                        if (this.state.isAddingItem || this.state.isEditingItem)
                             return (
-                                <ItemAdd
+                                <ItemAddEdit
+                                    isAddingItem={this.state.isAddingItem}
+                                    isEditingItem={this.state.isEditingItem}
                                     quantity={this.state.itemQuantity}
                                     name={this.state.itemName}
 
@@ -130,13 +175,10 @@ class List extends Component {
                                     onClickCancel={this.onClickCancel.bind(this)}
                                     onClickAdd={this.onClickAdd.bind(this)}
                                     onClickAddAnother={this.onClickAddAnother.bind(this)}
+                                    onClickUpdate={this.onClickUpdate.bind(this)}
 
                                     nameInputTextRef={this.nameInputTextRef}
                                 />
-                            );
-                        else if (this.state.isEditingItem)
-                            return (
-                                <div />
                             );
                         else
                             return (

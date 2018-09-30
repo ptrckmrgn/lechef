@@ -9,7 +9,8 @@ import Loader from '../components/Loader';
 import {
     fetchItems,
     addItem,
-    updateItem
+    updateItem,
+    deleteItems
 } from '../actions/firebase';
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
                         items={this.props.items}
                         addItem={this.props.addItem}
                         updateItem={this.props.updateItem}
+                        deleteItems={this.props.deleteItems}
                     />
                 </div>
             );
@@ -51,7 +53,8 @@ const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         fetchItems,
         addItem,
-        updateItem
+        updateItem,
+        deleteItems
     }, dispatch);
 }
 

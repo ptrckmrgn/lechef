@@ -18,10 +18,11 @@ export const FETCH_ITEMS = 'fetch_items';
 
 export function fetchItems() {
     return dispatch => {
-        db.collection('items').orderBy('updated_at', 'desc').onSnapshot(collection => {
+        db.collection('items').orderBy('created_at').onSnapshot(collection => {
             const items = {};
             collection.forEach(item => {
                 items[item.id] = item.data();
+                items[item.id].id = item.id;
             });
             dispatch({
                 type: FETCH_ITEMS,
@@ -49,5 +50,15 @@ export function updateItem(id, update) {
     update.updated_at = firebase.firestore.FieldValue.serverTimestamp();
     return dispatch => {
         db.collection('items').doc(id).update(update);
+    }
+}
+
+export function deleteItems(items) {
+    return dispatch => {
+        const batch = db.batch();
+        items.forEach(item => {
+            batch.delete(db.collection('items').doc(item.id))
+        });
+        return batch.commit();
     }
 }

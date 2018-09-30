@@ -8,7 +8,6 @@ import { FiPlus } from 'react-icons/fi';
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
-    ${'' /* justify-content: space-between; */}
 `;
 const IconButton = styled.button`
     display: flex;
@@ -24,7 +23,6 @@ const Value = styled.div`
     min-width: 22px;
     font-size: 1.1em;
     text-align: center;
-    ${'' /* margin: 0 -8px; */}
 `;
 
 const InputStepper = props => {
