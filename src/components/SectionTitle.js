@@ -8,6 +8,7 @@ const Wrapper = styled.div`
     font-size: 0.8em;
     padding: 16px;
     padding-top: 24px;
+    border-bottom: 1px #ddd solid;
 `;
 
 const SectionTitle = props => {

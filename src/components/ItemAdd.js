@@ -20,7 +20,7 @@ const WrapperButtons = styled.div`
     border-top: 1px #ddd solid;
 `;
 
-const ItemAddEdit = props => {
+const ItemAdd = props => {
     return (
         <Wrapper>
             <WrapperInputs>
@@ -36,24 +36,16 @@ const ItemAddEdit = props => {
                     innerRef={props.nameInputTextRef}
                 />
             </WrapperInputs>
-            {props.isAddingItem &&
-                <WrapperButtons>
-                    <Button wide style={{borderRight: '1px #ddd solid'}} onClick={props.onClickCancel}>Cancel</Button>
-                    <Button wide style={{borderRight: '1px #ddd solid'}} onClick={props.onClickAddAnother}>Add Another</Button>
-                    <Button primary wide onClick={props.onClickAdd}>Add</Button>
-                </WrapperButtons>
-            }
-            {props.isEditingItem &&
-                <WrapperButtons>
-                    <Button wide style={{borderRight: '1px #ddd solid'}} onClick={props.onClickCancel}>Cancel</Button>
-                    <Button primary wide onClick={props.onClickUpdate}>Update</Button>
-                </WrapperButtons>
-            }
+            <WrapperButtons>
+                <Button wide style={{borderRight: '1px #ddd solid'}} onClick={props.onClickCancel}>Cancel</Button>
+                <Button wide style={{borderRight: '1px #ddd solid'}} onClick={props.onClickAddAnother}>Add Another</Button>
+                <Button primary wide onClick={props.onClickAdd}>Add</Button>
+            </WrapperButtons>
         </Wrapper>
     );
 }
 
-ItemAddEdit.propTypes = {
+ItemAdd.propTypes = {
     quantity: PropTypes.number.isRequired,
     name: PropTypes.string,
     onClickMinus: PropTypes.func.isRequired,
@@ -63,4 +55,4 @@ ItemAddEdit.propTypes = {
     onClickAdd: PropTypes.func.isRequired,
     onClickAddAnother: PropTypes.func.isRequired
 };
-export default ItemAddEdit;
+export default ItemAdd;
