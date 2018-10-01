@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { FiMoreVertical } from 'react-icons/fi';
+import { FiEdit2 } from 'react-icons/fi';
 import { FiSquare } from 'react-icons/fi';
 import { FiCheckSquare } from 'react-icons/fi';
 
 const Wrapper = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    ${'' /* justify-content: space-between; */}
     height: 56px;
     border-bottom: 1px #ddd solid;
 `;
@@ -28,10 +28,10 @@ const Text = styled.div`
     text-decoration: ${props => props.checked && "line-through"};
     white-space: pre;
 `;
-const MoreMenu = styled.button`
-    font-size: 1.5em;
-    padding: 8px 12px;
-    color: ${props => props.checked ? '#aaa' : '#666'};
+const Edit = styled.button`
+    font-size: 1em;
+    padding: 8px 16px;
+    color: ${props => props.checked ? '#aaa' : '#aaa'};
     display: flex;
     align-items: center;
     -webkit-tap-highlight-color: transparent;
@@ -58,9 +58,11 @@ const Item = props => {
                 <Text checked={props.checked}> {props.quantity}  {props.name}</Text>
             </div>
             <div>
-                <MoreMenu aria-label="item options" onClick={props.onClickEllipsis}>
-                    <FiMoreVertical />
-                </MoreMenu>
+                {!props.checked && (
+                    <Edit onClick={props.onClickEdit} checked={props.checked} aria-label="item options">
+                        <FiEdit2 />
+                    </Edit>
+                )}
             </div>
         </Wrapper>
     );
